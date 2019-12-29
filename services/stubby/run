@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+echo >&2 "starting proxychains4/stubby"
+echo "nameserver 127.0.0.1" > /etc/resolv.conf
+/usr/bin/proxychains4 -f /etc/proxychains.conf /usr/bin/stubby -C /etc/stubby/stubby.yml

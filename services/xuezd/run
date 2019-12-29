@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv sh
+echo >&2 "starting xuezd"
+export HOME=/home/xuezd
+sudo -u xuezd /usr/local/bin/xuezd
