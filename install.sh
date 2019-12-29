@@ -159,9 +159,9 @@ printf "${YELLOW}BEGINNING INSTALL...${NC}\n"
 #
 #
 #
-#Edit transcendence.conf:
+#Edit xuez.conf:
 #
-printf "${YELLOW}Editing transcendence.conf...${NC}\n"
+printf "${YELLOW}Editing xuez.conf...${NC}\n"
 sed -i "s/masternodeprivkey=/masternodeprivkey=$MASTERNODEPRIVKEY/g" xuez.conf
 sed -i "s/masternodeaddr=/masternodeaddr=$MASTERNODEADDR/g" xuez.conf
 sed -i "s/rpcuser=/rpcuser=$RPCUSER/g" xuez.conf
