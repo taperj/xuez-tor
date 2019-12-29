@@ -26,7 +26,7 @@ Make sure to allow port 41798/tcp(or whatever port you specify to run the master
 sudo ufw allow 41798/tcp<br>
 <br>
 <b>Description of encrypted/anonymized DNS linkage:</b><br>
-Stubby is a small DNS stub resolver that uses TLS to encrypt its lookups when queried. I have configured Stubby to use proxychains4 which passes the query to a SOCKS5 proxy, being Tor. So any DNS queries within the container are encrypted locally with stubby and the lookup is anonymized over Tor.<br>
+Stubby is a small DNS stub resolver that uses TLS to encrypt its lookups when queried. I have configured Stubby to use proxychains4 which passes the query to a SOCKS5 proxy, being Tor. So any DNS queries within the container are encrypted locally with stubby and the encrypted lookup is anonymized over Tor.<br>
 <br>
 Tips for the developer..<br>
 BTC: 3HLx5AMe9S5SWzVqLwAib3oyGZm5nAAWKe<br>
