@@ -2,3 +2,14 @@
 echo >&2 "starting xuezd"
 export HOME=/home/xuezd
 sudo -u xuezd /usr/local/bin/xuezd
+
+for file in /root/reindex
+do
+if [ -f $file ]; then
+        printf "reindex file detected, starting xuezd with -reindex\n"
+        rm -fvr /root/reindex
+        sudo -u xuezd /usr/local/bin/xuezd -reindex
+else
+        sudo -u xuezd /usr/local/bin/xuezd
+fi
+done
