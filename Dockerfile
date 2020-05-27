@@ -12,6 +12,7 @@ RUN apt-get update \
  	&&    cd /home/xuezd \
 	&&    mkdir /home/xuezd/.xuez \
 	&&    chown xuezd:xuezd /home/xuezd/.xuez \
+	&&    ln -s /home/xuezd/.xuez /root/.xuez \
  	&&    wget https://github.com/XUEZ/xuez/releases/download/1.0.1.10/xuez-linux-cli-10110.tgz \
  	&&    tar zxf xuez-linux-cli-10110.tgz \
  	&&    mv xuezd xuez-cli xuez-tx /usr/local/bin/ \
