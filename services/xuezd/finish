@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+xuez-cli stop
 echo >&2 "xuezd exited. code=${1}"
 
 # terminate other services to exit from the container
