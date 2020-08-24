@@ -91,6 +91,20 @@ read MASTERNODEADDR
 #
 printf "${WHITE}Enter the port number you'd like xuezd to listen on, default Port 41798 will be used if no port specified.${NC}\n"
 read PORTNUMBER
+if  [ "$PORTNUMBER" = "" ];then
+	PORTNUMBER="0"
+fi
+
+isnumeric=`echo "$PORTNUMBER" | egrep "^[0-9]+$"`
+
+if [ "$isnumeric" ]; then
+        printf "${GREEN}Entered data is numeric or null... continuing.${NC}\n"
+	unset PORTNUMBER
+else
+        printf "${RED}Entered data is non-numeric. Exiting.${NC}\n"
+        exit
+fi
+
 
 if [ "$PORTNUMBER" != "" ]
   then
@@ -114,7 +128,33 @@ printf "${WHITE}Enter a username for RPC:${NC}\n"
 read RPCUSER
 printf "${WHITE}Enter a password for RPC:${NC}\n"
 read RPCPASSWORD
-printf "${WHITE}SANITY CHECK...${NC}\n"
+printf "${WHITE}Enter any single IP(127.0.0.1 will automatically be added) that should have RPC access:${NC}\n"
+read RPCIP
+printf "${WHITE}Enter port that RPC should listen on(Default port 51473 will be used if none is specified):${NC}\n"
+read RPCPORT
+
+if [ "$RPCPORT" = "" ];then
+	RPCPORT="0"
+fi
+
+isnumeric=`echo "$RPCPORT" | egrep "^[0-9]+$"`
+
+if [ "$isnumeric" ]
+then
+	printf "${GREEN}Entered data is numeric or null... continuing.${NC}\n"
+	unset RPCPORT
+else
+	printf "${RED}Entered data is non-numeric. Exiting.${NC}\n"
+	exit
+fi
+
+if [ "$RPCPORT" = "" ]; then
+        printf "${YELLOW}No port number specified. Default Port 51473 will be used.${NC}\n"
+        RPCPORT=51473
+else
+        printf "${YELLOW}RPC Port $RPCPORT specified in user input. Port $RPCPORT will be configured.${NC}\n"
+
+fi
 #
 #
 #Sanity check
@@ -123,6 +163,9 @@ printf "${WHITE}SANITY CHECK...${NC}\n"
 #
 #Check for docker
 #
+
+printf "${WHITE}SANITY CHECK...${NC}\n"
+
 if ! [ -x "$(command -v docker)" ]; then
 	printf "${RED}docker is not detected or not executable.${GREEN} Installing docker.${NC}\n"
 	apt-get -y install docker docker.io
@@ -166,12 +209,33 @@ sed -i "s/masternodeprivkey=/masternodeprivkey=$MASTERNODEPRIVKEY/g" xuez.conf
 sed -i "s/masternodeaddr=/masternodeaddr=$MASTERNODEADDR/g" xuez.conf
 sed -i "s/rpcuser=/rpcuser=$RPCUSER/g" xuez.conf
 sed -i "s/rpcpassword=/rpcpassword=$RPCPASSWORD/g" xuez.conf
+sed -i "s/^rpcport=/rpcport=$RPCPORT/g" xuez.conf
 sed -i "s/^port=/port=$PORTNUMBER/g" xuez.conf
+
+if [ "$RPCIP" != "" ]; then
+
+	sed -i "/^rpcallowip=127.0.0.1/a rpcallowip=$RPCIP"  xuez.conf
+fi
+
 #
 #
 #Edit Dockerfile
 printf "${YELLOW}Editing Dockerfile...${NC}\n"
 sed -i "s/HiddenServicePort 41798 127.0.0.1:41798/HiddenServicePort $PORTNUMBER 127.0.0.1:$PORTNUMBER/g" Dockerfile
+sed -i "s/HiddenServicePort 51473 127.0.0.1:51473/HiddenServicePort $RPCPORT 127.0.0.1:$RPCPORT/g" Dockerfile
+
+
+if [ -e "private_key" ]; then
+	chmod 600 "private_key"
+	sed -i '/ENTRYPOINT/'i\ 'COPY --chown=debian-tor:debian-tor private_key /home/debian-tor/.torhiddenservice/' Dockerfile
+	sed -i '/ENTRYPOINT/'i\ 'RUN chown debian-tor:debian-tor -R /home/debian-tor/.torhiddenservice/' Dockerfile
+        sed -i '/ENTRYPOINT/'i\ 'RUN chmod 700 /home/debian-tor/.torhiddenservice/' Dockerfile
+        sed -i '/ENTRYPOINT/'i\ 'RUN chmod 600 /home/debian-tor/.torhiddenservice/private_key' Dockerfile
+
+
+
+fi
+
 #
 #
 #Build image
@@ -182,7 +246,7 @@ docker build -t xuez-tor-$PORTNUMBER .
 #Create container
 #
 printf "${YELLOW}Creating container xuez-tor...${NC}\n"
-docker create --name xuez-tor-$PORTNUMBER --restart=always -p $PORTNUMBER:$PORTNUMBER xuez-tor-$PORTNUMBER:latest
+docker create --name xuez-tor-$PORTNUMBER --restart=unless-stopped -p $PORTNUMBER:$PORTNUMBER -p $RPCPORT:$RPCPORT xuez-tor-$PORTNUMBER:latest
 #
 #
 #Start container

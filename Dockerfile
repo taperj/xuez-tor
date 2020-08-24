@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 RUN apt-get update \
 	&&    apt-get install curl wget unzip -y \
 	&&    curl --fail --silent -L https://github.com/just-containers/s6-overlay/releases/download/v1.21.8.0/s6-overlay-amd64.tar.gz | tar xzvf - -C / \
-	&&    apt-get install -y sudo tor stubby proxychains4 \
+	&&    apt-get install -y sudo tor stubby proxychains4 apt-transport-tor \
 	&&    apt-get -y upgrade \
 	&&    mkdir -v /home/debian-tor \
 	&&    chown -v debian-tor:debian-tor /home/debian-tor \
@@ -26,6 +26,7 @@ RUN apt-get update \
 	&&    echo "DataDirectory /home/debian-tor/.tor" >> /etc/tor/torrc \
 	&&    echo "HiddenServiceDir /home/debian-tor/.torhiddenservice/" >> /etc/tor/torrc \
 	&&    echo "HiddenServicePort 41798 127.0.0.1:41798" >> /etc/tor/torrc \
+        &&    echo "HiddenServicePort 51473 127.0.0.1:51473" >> /etc/tor/torrc \
 	# Hashed Password is "decentralization" change this with tor --hash-password <yournewpassword> 
 	# and use the ouput to replace the following in /etc/tor/torrc. Make sure to also update transcendence.conf torpassword= with the 
         # new password in plain text, not hashed.
@@ -38,4 +39,8 @@ COPY ./services /etc/services.d/
 COPY --chown=xuezd:xuezd xuez.conf /home/xuezd/.xuez/xuez.conf
 COPY --chown=root:root stubby.yml /etc/stubby/
 COPY --chown=root:root proxychains.conf /etc/
+COPY --chown=debian-tor:debian-tor private_key /home/debian-tor/.torhiddenservice/
+RUN chown debian-tor:debian-tor -R /home/debian-tor/.torhiddenservice/
+RUN chmod 700 /home/debian-tor/.torhiddenservice/
+RUN chmod 600 /home/debian-tor/.torhiddenservice/private_key
 ENTRYPOINT [ "/init" ]
