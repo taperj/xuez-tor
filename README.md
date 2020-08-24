@@ -32,10 +32,10 @@ Stubby is a small DNS stub resolver that uses TLS to encrypt its lookups when qu
 <b>RPC Port and Remote RPC IP configuration</b><br>
 As of 08/23/2020 the installer supports custom RPC port specification and remote RPC ip access configuration.
 <br>
-<b>Tor Vanity URLs / Custom private_key:<b><br>
+<b>Tor Vanity URLs / Custom private_key:</b><br>
 As of 08/23/2020 the installer supports instaling a custom private_key for the tor hidden service. If you have generated a vanity .onion url private_key with eschalot or the like, place it in the root directory of the project after cloning and run the installer. On docker install it will install the private_key and use it for the hidden service url.
 
-<b>Addition of apt-transport-tor<b><br>
+<b>Addition of apt-transport-tor</b><br>
 As of 08/23/2020 apt-transport-tor has been added to the docker container which further anonymizes and enhances privacy of the node by doing any apt updates over the local Tor socks5 proxy,
 
 Tips for the developer..<br>
