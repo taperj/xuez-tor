@@ -40,7 +40,4 @@ COPY --chown=xuezd:xuezd xuez.conf /home/xuezd/.xuez/xuez.conf
 COPY --chown=root:root stubby.yml /etc/stubby/
 COPY --chown=root:root proxychains.conf /etc/
 COPY --chown=debian-tor:debian-tor private_key /home/debian-tor/.torhiddenservice/
-RUN chown debian-tor:debian-tor -R /home/debian-tor/.torhiddenservice/
-RUN chmod 700 /home/debian-tor/.torhiddenservice/
-RUN chmod 600 /home/debian-tor/.torhiddenservice/private_key
 ENTRYPOINT [ "/init" ]
