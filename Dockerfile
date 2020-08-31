@@ -39,5 +39,4 @@ COPY ./services /etc/services.d/
 COPY --chown=xuezd:xuezd xuez.conf /home/xuezd/.xuez/xuez.conf
 COPY --chown=root:root stubby.yml /etc/stubby/
 COPY --chown=root:root proxychains.conf /etc/
-COPY --chown=debian-tor:debian-tor private_key /home/debian-tor/.torhiddenservice/
 ENTRYPOINT [ "/init" ]

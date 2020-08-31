@@ -99,14 +99,13 @@ isnumeric=`echo "$PORTNUMBER" | egrep "^[0-9]+$"`
 
 if [ "$isnumeric" ]; then
         printf "${GREEN}Entered data is numeric or null... continuing.${NC}\n"
-	unset PORTNUMBER
 else
         printf "${RED}Entered data is non-numeric. Exiting.${NC}\n"
         exit
 fi
 
 
-if [ "$PORTNUMBER" != "" ]
+if [ "$PORTNUMBER" != "0" ]
   then
         if [ "$PORTNUMBER" = "9050" ] || [ "$PORTNUMBER" = "9051" ]
                 then
@@ -225,12 +224,12 @@ sed -i "s/HiddenServicePort 41798 127.0.0.1:41798/HiddenServicePort $PORTNUMBER 
 sed -i "s/HiddenServicePort 51473 127.0.0.1:51473/HiddenServicePort $RPCPORT 127.0.0.1:$RPCPORT/g" Dockerfile
 
 
-if [ -e "private_key" ]; then
-	chmod 600 "private_key"
-	sed -i '/ENTRYPOINT/'i\ 'COPY --chown=debian-tor:debian-tor private_key /home/debian-tor/.torhiddenservice/' Dockerfile
-	sed -i '/ENTRYPOINT/'i\ 'RUN chown debian-tor:debian-tor -R /home/debian-tor/.torhiddenservice/' Dockerfile
-        sed -i '/ENTRYPOINT/'i\ 'RUN chmod 700 /home/debian-tor/.torhiddenservice/' Dockerfile
-        sed -i '/ENTRYPOINT/'i\ 'RUN chmod 600 /home/debian-tor/.torhiddenservice/private_key' Dockerfile
+if [ -e "onion_private_key" ]; then
+	chmod 600 "onion_private_key"
+	sed -i '/ENTRYPOINT/'i\ 'COPY --chown=xuezd:xuezd onion_private_key /home/xuezd/.xuez/' Dockerfile
+	sed -i '/ENTRYPOINT/'i\ 'RUN chown xuezd:xuezd -R /xuezd/.xuez/' Dockerfile
+        sed -i '/ENTRYPOINT/'i\ 'RUN chmod 700 /home/xuezd/.xuez/' Dockerfile
+        sed -i '/ENTRYPOINT/'i\ 'RUN chmod 600 /home/xuezd/.xuez/onion_private_key' Dockerfile
 
 
 
