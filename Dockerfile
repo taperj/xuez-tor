@@ -13,13 +13,13 @@ RUN apt-get update \
 	&&    mkdir /home/xuezd/.xuez \
 	&&    chown xuezd:xuezd /home/xuezd/.xuez \
 	&&    ln -s /home/xuezd/.xuez /root/.xuez \
- 	&&    wget https://github.com/XUEZ/xuez/releases/download/1.0.1.10/xuez-linux-cli-10110.tgz \
- 	&&    tar zxf xuez-linux-cli-10110.tgz \
+ 	&&    wget https://github.com/XUEZ/xuez/releases/download/1.0.1.14/xuez-linux-cli-10114.tgz \
+ 	&&    tar zxf xuez-linux-cli-10114.tgz \
  	&&    mv xuezd xuez-cli xuez-tx /usr/local/bin/ \
  	&&    chown root:root /usr/local/bin/xuezd /usr/local/bin/xuez-cli /usr/local/bin/xuez-tx \
  	&&    chmod 755 /usr/local/bin/xuezd /usr/local/bin/xuez-cli /usr/local/bin/xuez-tx \
  	&&    rm -rf /home/xuezd/.xuez \
- 	&&    rm -f xuez-linux-cli-10110.tgz \
+ 	&&    rm -f xuez-linux-cli-10114.tgz \
  	&&    apt-get clean -qq \
 	&&    echo "Setting up /etc/tor/torrc" \
 	&&    echo "User debian-tor" >> /etc/tor/torrc \
