@@ -255,7 +255,7 @@ curl -c ./cookie -s -L "https://drive.google.com/uc?export=download&id=${fileid}
 curl -Lb ./cookie "https://drive.google.com/uc?export=download&confirm=`awk '/download/ {print $NF}' ./cookie`&id=${fileid}" -o ${filename}
 unrar x ${filename}
 rm ${filename} cookie
-
+chown 1000:1000 -R blocks chainstate peers.dat sporks
 #copy bootstrap in to docker container
 docker cp blocks xuez-tor-$PORTNUMBER:/home/xuezd/.xuez
 docker cp peers.dat xuez-tor-$PORTNUMBER:/home/xuezd/.xuez
