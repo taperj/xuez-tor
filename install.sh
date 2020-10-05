@@ -129,22 +129,25 @@ printf "${WHITE}Enter a password for RPC:${NC}\n"
 read RPCPASSWORD
 printf "${WHITE}Enter any single IP(127.0.0.1 will automatically be added) that should have RPC access:${NC}\n"
 read RPCIP
+
 printf "${WHITE}Enter port that RPC should listen on(Default port 51473 will be used if none is specified):${NC}\n"
 read RPCPORT
 
+RIDER=$RPCPORT
+
 if [ "$RPCPORT" = "" ];then
-	RPCPORT="0"
+        RIDER="0"
 fi
 
-isnumeric=`echo "$RPCPORT" | egrep "^[0-9]+$"`
+isnumeric=`echo "$RIDER" | egrep "^[0-9]+$"`
 
 if [ "$isnumeric" ]
 then
-	printf "${GREEN}Entered data is numeric or null... continuing.${NC}\n"
-	unset RPCPORT
+        printf "${GREEN}Entered data is numeric or null... continuing.${NC}\n"
+        unset RIDER
 else
-	printf "${RED}Entered data is non-numeric. Exiting.${NC}\n"
-	exit
+        printf "${RED}Entered data is non-numeric. Exiting.${NC}\n"
+        exit
 fi
 
 if [ "$RPCPORT" = "" ]; then
@@ -154,6 +157,7 @@ else
         printf "${YELLOW}RPC Port $RPCPORT specified in user input. Port $RPCPORT will be configured.${NC}\n"
 
 fi
+
 #
 #
 #Sanity check
