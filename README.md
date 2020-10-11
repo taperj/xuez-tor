@@ -11,7 +11,7 @@ clone the repository with git:<br>
 Change directory to the root of the project:<br>
 <code>cd xuez-tor</code><br>
 Make sure the installer is executable:<br>
-<code>chmod +x installer</code><br>
+<code>chmod +x install.sh</code><br>
 Run the installer<br>
 <code>sudo ./install.sh</code><br>
 
