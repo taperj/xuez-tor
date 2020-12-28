@@ -28,7 +28,7 @@ RUN apt-get update \
 	&&    echo "HiddenServicePort 41798 127.0.0.1:41798" >> /etc/tor/torrc \
         &&    echo "HiddenServicePort 51473 127.0.0.1:51473" >> /etc/tor/torrc \
 	# Hashed Password is "decentralization" change this with tor --hash-password <yournewpassword> 
-	# and use the ouput to replace the following in /etc/tor/torrc. Make sure to also update transcendence.conf torpassword= with the 
+	# and use the ouput to replace the following in /etc/tor/torrc. Make sure to also update xuez.conf torpassword= with the 
         # new password in plain text, not hashed.
 	&&    echo "HashedControlPassword 16:C7F40C06065809EE60D5C0B9086D2BDF88F32495CD1AE06E4571CB8212" >> /etc/tor/torrc \
 	&&    echo "ControlPort 9051" >> /etc/tor/torrc \
