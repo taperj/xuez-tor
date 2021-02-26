@@ -1,6 +1,11 @@
 # xuez-tor
 docker container: XUEZ Coin masternode with Tor and Stubby
 
+<h2>PLEASE BE AWARE THAT THIS REPOSITORY IS NOW DEFUNCT.<h2>
+
+<h6>Xuezcoin has switched chains to a pure PoS model without masternodes as of wallet version 2.0+, there is no more masternoding for this coin, only wallet staking.<h6>
+<br>
+
 Description and purpose:
 This repository is a contribution as a resource to easily build a docker image and create a container that contains a hot XUEZ Coin wallet configured to run as a masternode, xuezd uses Tor to connect to the network for privacy and anonymity and all dns queries are encrypted and anonymized using Stubby/Proxychains4/Tor. Tor/Stubby are contained within the same container as xuezd making this an all-in-one solution using s6-init to run multiple processes in the same container. The linkage between xuezd and the local Tor is configured on build of the image. Tor runs as user debian-tor within the container and xuezd runs as user xuezd. The image is based on Ubuntu 18.04 and the Dockerfile will pull this image as a base on build.
 
