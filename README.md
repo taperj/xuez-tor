@@ -1,9 +1,9 @@
 # xuez-tor
 docker container: XUEZ Coin masternode with Tor and Stubby
 
-<h2>PLEASE BE AWARE THAT THIS REPOSITORY IS NOW DEFUNCT.<h2>
+<h2>PLEASE BE AWARE THAT THIS REPOSITORY IS NOW DEFUNCT.</h2>
 
-<h6>Xuezcoin has switched chains to a pure PoS model without masternodes as of wallet version 2.0+, there is no more masternoding for this coin, only wallet staking.<h6>
+<h6>Xuezcoin has switched chains to a pure PoS model without masternodes as of wallet version 2.0+, there is no more masternoding for this coin, only wallet staking.</h6>
 <br>
 
 Description and purpose:
